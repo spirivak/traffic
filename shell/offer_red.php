@@ -87,7 +87,7 @@
                             <div class="widget widget-simple">
                                 <div class="widget-content">
                                     <div class="widget-body">
-                                        <form id="accounForm" class="form-horizontal" method="POST" action="" >
+                                        <form id="accounForm" class="form-horizontal" method="POST" action="update_db.php" >
                                             <div class="row-fluid">
                                                 <div class="span12 form-dark">
                                                     <fieldset>
@@ -181,9 +181,6 @@
 
 																</div>
                                                             </li>
-															
-															
-															
 															
 															<li class="control-group" id="tra_val" >
 																<label for="tr_val"  class="control-label">Соц.сети</label>
@@ -309,8 +306,11 @@
 																	$lands = mysqli_query($db,$l) or die (mysql_error());
 																	
 																	$i=1;
-																	while ($row4 = mysqli_fetch_array($lands)) {																	
-																		echo '<input id="landExmp'.$i.'" class="span11" type="text"  value="'.$row4["landing_val"].'" name="landExmp" required>';
+																	while ($row4 = mysqli_fetch_array($lands)) {		
+																		if ($i==1) 																	
+																		echo '<div class="n'.$i.'"><input id="landExmp'.$i.'" class="span11" type="text"  value="'.$row4["landing_val"].'" name="landExmp[]" required> <input id="btn_land_plus" class="span1" type="button" name="" value="+" ></div>';
+																		else echo '<div class="n'.$i.'"><input id="landExmp'.$i.'" class="span11" type="text"  value="'.$row4["landing_val"].'" name="landExmp[]" required> <input id="btn_land_min'.$i.'" class="span1" type="button" name="" value="-" ></div>';
+																		$i++;
 																	}
 																?>
 
@@ -321,12 +321,12 @@
 																var varb = 2;
 																$("#btn_land_plus").click(function(){
 																	var idEx='landExmp'+varb;
-																	var btnId='btn'+varb;
-																	$(".land").append('<div class="n'+varb+'"><input id='+idEx+' class="span10" type="text" name="landExmp[]" value="" required> <input id="btn_min'+varb+'" class="span1" type="button" name="" value="-" ></div>');
+																	
+																	$(".land").append('<div class="n'+varb+'"><input id='+idEx+' class="span11" type="text" name="landExmp[]" value="" required> <input id="btn_min'+varb+'" class="span1" type="button" name="" value="-" ></div>');
 																	
 																	
-																	$('#btn_min'+varb).click(function(){
-																		$("#"+idEx).parent().remove();
+																	$('#btn_land_min'+varb).click(function(){
+																		$("#"+idEx).remove();
 																		varb--;
 																	});
 																	varb++;
@@ -339,53 +339,67 @@
                                                                 <div class="controls paym">
 																
 																	<?php
+																		$i=1;
 																		$opt="SELECT * FROM oplata_tarif LEFT JOIN payment ON oplata_tarif.pay=payment.id LEFT JOIN currency ON oplata_tarif.currency=currency.id WHERE of_id='$id'";
 																		$optv = mysqli_query($db,$opt) or die (mysql_error());
 																		
+																		
+																		
+																		
 																		while ($row = mysqli_fetch_assoc($optv)) {
-																			echo '<div id="lol">
+																			if ($i==1) {
+																				echo '<div id="lol'.$i.'">
+																				<select id="pay" class="selecttwo  span6" name="pay[]"> 
+																					<option value="'.$row["pay"].'" selected>'.$row["pay_val"].'</option>';
+																					$res3=mysqli_query($db,"Select * from payment WHere id != ".$row["pay"]);
+																					while ($row2 = mysqli_fetch_assoc($res3)) {
+																						printf('<option value="%s">%s</option>',$row2["id"],$row2["pay_val"]);
+																					}
+																				
+																				echo '</select>
+																				
+																				<input id="rate" class="span3" type="text" name="rate[]" value="'.$row["rate"].'" >
+																				<select id="curr" class="selecttwo span2" name="currT[]" >
+																					<option value="'.$row["currency"].'" selected>'.$row["curname"].'</option>';
+																					$res3=mysqli_query($db,"Select * from currency WHere id != ".$row["currency"]);
+																					while ($row2 = mysqli_fetch_assoc($res3)) {
+																						printf('<option value="%s">%s</option>',$row2["id"],$row2["curname"]);
+																					}
+																				echo '</select>
+																				<input id="btn_pay_plus" class="span1" type="button" name="" value="+" >
+																				</div>
+																				';
+																			}
+																			else {
+																				echo '<div id="lol'.$i.'">
 																			<select id="pay" class="selecttwo  span6" name="pay[]"> 
-																				<option value="'.$row["pay"].'" selected>'.$row["pay_val"].'</option>
-																			
-																			</select>
+																				<option value="'.$row["pay"].'" selected>'.$row["pay_val"].'</option>';
+																			$res3=mysqli_query($db,"Select * from payment WHere id != ".$row["pay"]);
+																					while ($row2 = mysqli_fetch_assoc($res3)) {
+																						printf('<option value="%s">%s</option>',$row2["id"],$row2["pay_val"]);
+																					}
+																			echo '</select>
 																			
 																			<input id="rate" class="span3" type="text" name="rate[]" value="'.$row["rate"].'" >
-																			<select id="curr" class="selecttwo span2" name="currT[]" >
-																				<option value="'.$row["currency"].'" selected>'.$row["curname"].'</option>
-																			</select>
 																			
-																			</div>
-																			';
+																			
+																			 <select id="curr" class="selecttwo span2" name="currT[]" >
+																				<option value="'.$row["currency"].'" selected>'.$row["curname"].'</option>';
+																				$res3=mysqli_query($db,"Select * from currency WHere id != ".$row["currency"]);
+																					while ($row2 = mysqli_fetch_assoc($res3)) {
+																						printf('<option value="%s">%s</option>',$row2["id"],$row2["curname"]);
+																					}
+																			
+																			echo '</select>
+																			<input id="btn_pay_plus" class="span1" type="button" name="" value="-" >
+																			</div>';
+																			
+																			}
+																			$i++;
 																		}
 																				
 																	?>
 																	
-																	<!--<div id="lol">
-																	<select id="pay" class="selecttwo span6" name="pay[]" required>
-																		<option>&nbsp;</option>
-																		<?php
-																			
-																			/*$res=mysqli_query($db,"SELECT pay_val,rate,curname FROM oplata_tarif LEFT JOIN payment ON oplata_tarif.pay=payment.id");
-																			
-																			while ($row = mysqli_fetch_assoc($res)) {
-																				printf('<option value="%s">%s</option>',$row["id"],$row["pay_val"]);
-																			}
-;																		?>
-																	</select>
-																	<input id="rate" class="span3" type="text" name="rate[]" value="" required>
-																	<select id="curr" class="selecttwo span2" name="currT[]" required>
-																		<option>&nbsp;</option>
-																		<?php
-																			
-																			$res=mysqli_query($db,"Select * from currency");
-																			
-																			while ($row = mysqli_fetch_assoc($res)) {
-																				printf('<option value="%s">%s</option>',$row["id"],$row["curname"]);
-																			}*/
-																	?>
-																	</select>
-																	<input id="btn_pay_plus" class="span1" type="button" name="" value="+" >
-																	</div>-->
                                                                 </div>
                                                             </li>
 															
@@ -413,7 +427,7 @@
 							<!--    Здесь должно быть ГЕО   -->
 							
 															<li class="control-group">
-                                                                <label for="cp" class="control-label">СР, %</label>
+                                                                <label for="cp" class="control-label">СR, %</label>
                                                                 <div class="controls">
                                                                      <?php
 																		$res=mysqli_query($db,"Select cp from offers where id_off='$id'");
@@ -425,7 +439,7 @@
                                                             <!-- // form item -->
 															
 															<li class="control-group">
-                                                                <label for="cpc" class="control-label">СРС, %</label>
+                                                                <label for="cpc" class="control-label">СРС</label>
                                                                 <div class="controls">
                                                                    <?php
 																	$res=mysqli_query($db,"Select cpc from offers where id_off='$id'");

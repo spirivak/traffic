@@ -1,6 +1,6 @@
-<?php 
-	include_once("bd.php");
-?>
+
+	
+	<?php include_once("bd.php");?>
 
 <!DOCTYPE html>
 
@@ -35,25 +35,11 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<?php include("js.php");?>
+
 </head>
 
 <body class="sidebar-left ">
 
-
-<script>
-$(function() {
-    $('.toggle-link').click(function(event) {
-        $('#red').toggle();
-    });
-    $(document).click(function (event) {
-        if ($(event.target).closest('#red').length == 0 && $(event.target).attr('class') != 'toggle-link') {
-            $('#red').hide();
-        }
-    });
-});
-</script>
 
 
 <div class="page-container">
@@ -79,13 +65,13 @@ $(function() {
             </div>
             <!-- // drawer --> 
         </div>
-   </div>
+    </div>
     <div id="main-container">
 		<?php include("menu.php");?>
         <div id="main-content" class="main-content container-fluid">
             <div class="row-fluid page-head">
-                <h2 class="page-title"><i class="fontello-icon-monitor"></i>Все офферы</h2>
-                <p class="pagedesc" style="margin-left: 45px; margin-top: 0px;"></p>
+                <h2 class="page-title"><i class="fontello-icon-monitor"></i>Мои офферы</h2>
+                
                 <div class="page-bar">
                     <div class="btn-toolbar"> </div>
                 </div>
@@ -102,8 +88,7 @@ $(function() {
                                         <form id="accounForm" class="form-horizontal"  >
                                             <div class="row-fluid">
                                                 <div class="span12 form-dark">
-												
-													<fieldset>
+                                                    <fieldset>
 													
                                                         <table width="100%" id="two" class="table table-striped table-bordered boo-table table-condensed" cellspacing="0" cellpadding="4" >
 															 <thead>
@@ -137,7 +122,6 @@ $(function() {
 																						LEFT JOIN currency ON offers.curr = currency.id
 																						LEFT JOIN rate_currency ON offers.curr_t = rate_currency.id
 																						ORDER BY id_off');
-
 																while ($row = mysqli_fetch_assoc($res)) {
 																	
 																	$str='';
@@ -147,7 +131,7 @@ $(function() {
 																	$str5='';
 																	
 																	$t = $row["cpa"];
-																	$r="SELECT cpa_name FROM cpa_types where id in ($t)"	;
+																	$r="SELECT cpa_name FROM cpa_types where id in ($t)";
 																	$traft=mysqli_query($db,$r) or die (mysql_error());	
 																	
 																	while ($row2 = mysqli_fetch_array($traft)) {
@@ -155,7 +139,7 @@ $(function() {
 																	}
 																	
 																	$t1 = $row["traffic"];
-																	$r1="SELECT traf_name FROM avail_traf where id in ($t1)"	;
+																	$r1="SELECT traf_name FROM avail_traf where id in ($t1)";
 																	$traft=mysqli_query($db,$r1) or die (mysql_error());	
 																	
 																	while ($row3 = mysqli_fetch_array($traft)) {
@@ -181,7 +165,7 @@ $(function() {
 																	<td >".$row['name']."</td>													
 																	<td >".$row['t_name']."</td>
 																	<td >".$str."</td>
-																	<td >".$row['startdate']."</td>
+																	<td >".date("d.m.Y",strtotime($row['startdate']))."</td>
 																	<td >".$str2."</td>
 																	<td >".$str3."</td>
 																	<td >".$str4."</td>
@@ -194,9 +178,8 @@ $(function() {
 																	<td >".$row['prim']."</td></tr>";																
 																}
 															 ?>
-															
+
 														</table>
-														
 														
 														<script>
 																$("tr").css('cursor', 'pointer');
@@ -208,6 +191,7 @@ $(function() {
 																	location.href="offer_red.php";
 																});
 														</script>
+														
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -223,5 +207,7 @@ $(function() {
     </div>
 
 <?php include("footer.php");?>
+
+<?php include("js.php");?>
 </body>
 </html>

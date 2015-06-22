@@ -141,9 +141,9 @@
 																	
 																	echo 
 																	"<td >".$row['suboff_id']."</td>
-																	<td >".$row['startdate']."</td>
+																	<td >".date("d.m.Y",strtotime($row['startdate']))."</td>
 																	<td >".$row['end_date']."</td>
-																	<td >".$row['status_icon']."</td>
+																	<td style='text-align: center;'>".$row['status_icon']."</td>
 																	<td >".$row['cpa_name']."</td>
 																	<td >".$row['value']."</td>
 																	<td >Фото</td>
