@@ -1,7 +1,7 @@
 <script src="assets/js/lib/jquery.js"></script> 
 <script src="assets/js/lib/jquery-ui.js"></script>
 <script src="assets/js/lib/jquery.cookie.js"></script> 
-<script src="assets/js/lib/jquery.date.js"></script> 
+<script src="assets/js/lib/jquery.date.min.js"></script> 
 <script src="assets/js/lib/jquery.mousewheel.js"></script> 
 <script src="assets/js/lib/jquery.load-image.min.js"></script>
 <script src="assets/js/lib/bootstrap/bootstrap.js"></script> 
@@ -9,10 +9,10 @@
 <!-- Plugins Bootstrap -->
 <script src="assets/plugins/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.min.js"></script> 
 <script src="assets/plugins/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
-<script src="assets/plugins/bootstrap-fuelux/all-fuelux.min.js"></script> 
+<script src="assets/plugins/bootstrap-fuelux/js/all-fuelux.js"></script> 
 <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> 
 <script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
-<script src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <script src="assets/plugins/bootstrap-daterangepicker/js/bootstrap-daterangepicker.js"></script> 
 <script src="assets/plugins/bootstrap-toggle-button/js/bootstrap-toggle-button.js"></script> 
@@ -73,10 +73,10 @@
 
 <!-- Plugins data visualization --> 
 <script src="assets/plugins/pl-visualization/sparkline/jquery.sparkline.min.js"></script> 
-<script src="assets/plugins/pl-visualization/easy-pie-chart/jquery.easy-pie-chart.js"></script> 
+<script src="assets/plugins/pl-visualization/easy-pie-chart/easy-pie-chart.js"></script> 
 <script src="assets/plugins/pl-visualization/percentageloader/percentageloader.min.js"></script>
 <script src="assets/plugins/pl-visualization/knob/knob.js"></script> 
-<script src="assets/plugins/pl-visualization/flot/jquery.flot.js"></script> 
+<script src="assets/plugins/pl-visualization/flot/jquery.flot.js"></script> -->
 <script src="assets/plugins/pl-visualization/flot/jquery.flot.categories.js"></script> 
 <script src="assets/plugins/pl-visualization/flot/jquery.flot.grow.js"></script> 
 <script src="assets/plugins/pl-visualization/flot/jquery.flot.orderBars.js"></script> 
@@ -92,4 +92,3 @@
 <script src="assets/js/application.js"></script>   
 
 <!-- Only This Demo Page --> 
-<script src="assets/js/demo/demo-dashboard1.js"></script> 
